@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="robots" content="index, follow">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mourad Znidi | Frontend Developer</title>
@@ -733,7 +734,7 @@
                                 </div>
                                 <div class="ml-4">
                                     <h4 class="text-sm font-medium text-gray-400 group-hover:text-gray-300 transition duration-300">Email</h4>
-                                    <a href="mailto:znidimourad26@gmail.com" class="text-base text-white hover:text-indigo-400 transition duration-300">znidimourad26@gmail.com</a>
+                                    <a href="znidimourad26@gmail.com" class="text-base text-white hover:text-indigo-400 transition duration-300">znidimourad26@gmail.com</a>
                                 </div>
                             </div>
                             
@@ -942,6 +943,27 @@
 
   form.addEventListener('submit', e => {
     e.preventDefault();
+    // Add this inside your existing form submit handler
+const name = form.name.value.trim();
+const email = form.email.value.trim();
+const message = form.txt.value.trim();
+
+if (!name || !email || !message) {
+  Swal.fire('Error', 'Please fill all fields', 'error');
+  return;
+}
+
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  Swal.fire('Error', 'Please enter a valid email', 'error');
+  return;
+}
+
+if (/(<script>|javascript:|on\w+=)/i.test(name + message)) {
+  Swal.fire('Error', 'Invalid characters detected', 'error');
+  return;
+}
+
+// Then continue with your existing fetch() code
     if (!form.name.value || !form.email.value || !form.message.value) {
     Swal.fire({
       title: 'Incomplete Form',
@@ -981,7 +1003,9 @@
         submitButton.disabled = false;
         submitButton.innerHTML = originalText;
       });
+      
   });
+  
 
 
     </script>
